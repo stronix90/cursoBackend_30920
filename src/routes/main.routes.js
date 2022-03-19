@@ -1,7 +1,10 @@
-import { Router } from "express";
-import { getProductoRandom, getProductos, index } from "../controllers/main.controllers.js";
+const  express = require('express');
+const  router = express.Router();
 
-const router = Router();
+const mainControllers = require('../controllers/main.controllers');
+const getProductoRandom = mainControllers.getProductoRandom
+const getProductos = mainControllers.getProductos
+const index = mainControllers.index
 
 router.get("/", index);
 
@@ -9,4 +12,4 @@ router.get("/productos", getProductos);
 
 router.get("/productoRandom", getProductoRandom);
 
-export default router;
+module.exports = router

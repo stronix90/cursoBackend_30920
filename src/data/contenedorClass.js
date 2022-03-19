@@ -1,7 +1,7 @@
-import fs from "fs";
-import random from "random";
+const fs = require('fs');
+const random = require('random');
 
-export default class Contenedor {
+class Contenedor {
   constructor(fileName) {
     this.fileName = fileName;
   }
@@ -63,7 +63,7 @@ export default class Contenedor {
 
   getRandom = async () => {
     const data = await this.readFile();
-    const randomIndex = random.int(0, data.length-1);
+    const randomIndex = random.int(0, data.length - 1);
     return { randomNumber: randomIndex, data: data[randomIndex] };
   };
 
@@ -79,3 +79,5 @@ export default class Contenedor {
     this.saveFile([]);
   }
 }
+
+module.exports = Contenedor

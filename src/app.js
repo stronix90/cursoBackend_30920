@@ -1,18 +1,18 @@
-import express from 'express';
-import path from 'path';
-import morgan from 'morgan';
-import router from './routes/main.routes.js'
+const express = require('express');
+const morgan = require('morgan');
+const mainRoutes = require('./routes/main.routes');
 
 // Inicio aplicación
-const app = express()
+const app = express();
 
 // Settings
-app.set('port', 8080)
+app.set("port", 8080);
 
 // Middlewares
-app.use(morgan('dev'))
+app.use(morgan("dev"));
 
 // Routes
-app.use(router)
+app.use(mainRoutes);
 
-export default app
+module.exports = app
+
