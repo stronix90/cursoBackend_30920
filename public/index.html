@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/ea1b9abd34.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="alert alert-warning small">
+            <span>Mensajes de servidor: </span>
+            <span id="serverMsg"></span>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6 p-3">
+                <h2>Crear nuevo producto</h2>
+                <form id="form1" action="" method="">
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Título</label>
+                        <input class="form-control" type="text" name="title" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="price">Precio</label>
+                        <input class="form-control" type="number" name="price" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="thumbnail">Imagen miniatura</label>
+                        <input class="form-control" type="tel" name="thumbnail" required>
+                    </div>
+
+                    <div class="d-flex">
+                        <button class="btn btn-light" type="reset">Borrar formulario</button>
+                        <button class="btn btn-success ms-auto" type="submit">Cargar producto</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-md-6 p-3">
+                <h2>Productos</h2>
+                <div class="row">
+                    <p class="btn btn-light" id="btn_refresh">Actualizar</p>
+                </div>
+                <ul id="productsList" style="padding: 0;">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
