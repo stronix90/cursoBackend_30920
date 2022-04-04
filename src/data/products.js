@@ -76,10 +76,27 @@ class ProductsList {
 const productsList = new ProductsList();
 module.exports = productsList;
 
-const a = productsList.createProduct({
-  title: "Crema de enjuage",
-  price: 20,
-  thumbnail: "http://imagen",
+productsList.createProduct({
+  title: "Megadeth: Youthanasia",
+  price: 1050,
+  thumbnail: "No tiene",
 });
 
-console.log(a);
+productsList.createProduct({
+  title: "Black Pumas: Black Pumas",
+  price: 1300,
+  thumbnail: "No tiene",
+});
+
+productsList.createProduct({
+  title: "Héroes del silencio: El espíritu del vino",
+  price: 1000,
+  thumbnail: "No tiene",
+});
+
+productsList.createProduct({
+  title: "Tash Sultana: Notion - EP",
+  price: 1250,
+  thumbnail: "No tiene",
+});
+
