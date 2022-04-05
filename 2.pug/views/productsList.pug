@@ -1,0 +1,19 @@
+extends layouts/main.pug
+
+block content
+    h1 Listado de productos
+    ul#productsList(style='padding: 0;')
+        li.row.align-items-center
+            .col-8
+                b Producto
+            .col-3
+                b Precio
+            .col-1
+                b Acciones
+        each val, key in products
+            li.row.align-items-center
+                .col-8=val.title
+                .col-3=val.price
+                .col-1
+                    a.btn.btn-light(href='#', onclick='delProduct('+val.id+')')
+                        i.fas.fa-trash

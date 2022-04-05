@@ -1,0 +1,24 @@
+{
+  "name": "30920_lunabrian_desafio_5",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "handlebars": "nodemon 1.handlebars/index.js",
+    "pug": "nodemon 2.pug/index.js",
+    "ejs": "nodemon 3.EJS/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "description": ""
+}

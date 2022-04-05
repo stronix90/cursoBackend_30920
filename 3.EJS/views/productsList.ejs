@@ -1,0 +1,23 @@
+<%- include('layouts/mainTop'); -%>
+
+<h1>Listado de productos</h1>
+
+<ul id="productsList" style="padding: 0;">
+    <li class="row align-items-center" id="item_${product.id}">
+        <div class="col-8"><b>Producto</b></div>
+        <div class="col-3"><b>Precio</b></div>
+        <div class="col-1"><b>Acciones</b></div>
+    </li>
+    
+        <% products.forEach(function(product) { %>
+            <!-- <li> Name:<%= product.title %> Course:<%= product.price %></li> -->
+            <li class="row align-items-center" id="item_${product.id}">
+                <div class="col-8"><%= product.title %></div>
+                <div class="col-3">$<%= product.price %></div>
+                <div class="col-1"><a href="#" onclick=<%= "delProduct(" + product.id + ")" %> class="btn btn-light"><i class="fas fa-trash"></i></a></div>
+            </li>
+        <% }); %> 
+
+</ul>
+
+<%- include('layouts/mainBottom'); -%>
