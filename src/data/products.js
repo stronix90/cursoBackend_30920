@@ -77,26 +77,19 @@ const productsList = new ProductsList();
 module.exports = productsList;
 
 productsList.createProduct({
-  title: "Megadeth: Youthanasia",
-  price: 1050,
-  thumbnail: "No tiene",
+  title: "Calculadora",
+  price: 1500,
+  thumbnail: "https://www.matematica.pt/images/256_calculadora.png",
 });
 
 productsList.createProduct({
-  title: "Black Pumas: Black Pumas",
-  price: 1300,
-  thumbnail: "No tiene",
+  title: "Escuadra",
+  price: 250,
+  thumbnail: "https://www.sid.com.uy/imgs/productos/productos31_4375.jpg",
 });
 
 productsList.createProduct({
-  title: "Héroes del silencio: El espíritu del vino",
-  price: 1000,
-  thumbnail: "No tiene",
+  title: "Reloj",
+  price: 500,
+  thumbnail: "https://cpng.pikpng.com/pngl/s/215-2156256_reloj-png-imagenes-de-relojes-png-clipart.png",
 });
-
-productsList.createProduct({
-  title: "Tash Sultana: Notion - EP",
-  price: 1250,
-  thumbnail: "No tiene",
-});
-

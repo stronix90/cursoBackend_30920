@@ -3,8 +3,8 @@ const morgan = require("morgan");
 const path = require('path');
 const { engine }  = require('express-handlebars');
 
-const mainRouter = require("./routes/mainRouter");
-const productRouter = require("./routes/productRouter");
+const mainRouter = require("../src/routes/mainRouter")
+const productRouter = require("../src/routes/productRouter");
 
 // Inicio aplicación
 const app = express();

@@ -3,6 +3,7 @@ const errInvalidID = { error: "El ID ingresado no corresponde" };
 
 const getProducts = (req, res) => {
   const products = productsList.getAllProducts()
+  console.log(products);
   res.render('productsList', {products});
 };
 

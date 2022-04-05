@@ -1,0 +1,38 @@
+body{
+    background: #FDC830;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F37335, #FDC830);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F37335, #FDC830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+
+.productImage {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.card{
+    background-color: #FFFFFF80;
+}
+
+.customRow > li{
+    border-bottom: solid 1px #f89b33;
+    transition: .3s all ease-in-out;
+}
+.customRow > li:hover{
+    background: #f8bd2f50;
+}
+
+.customBtn{
+    background: transparent;
+    box-shadow: 0 0 5px 0 rgb(252, 179, 96);
+}
+
+.customBtn:hover{
+    background: #f89b33;
+    box-shadow: 0 0 5px 0 rgb(255, 147, 23);
+}
+
+.customBtn:hover i {
+    color: rgb(255, 255, 255);
+}
+

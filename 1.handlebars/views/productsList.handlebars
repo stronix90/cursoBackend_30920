@@ -1,17 +1,22 @@
 
 <h1>Listado de productos</h1>
 
-<ul id="productsList" style="padding: 0;">
-    <li class="row align-items-center" id="item_${product.id}">
-        <div class="col-8"><b>Producto</b></div>
-        <div class="col-3"><b>Precio</b></div>
-        <div class="col-1"><b>Acciones</b></div>
-    </li>
-    {{#each products}}
-        <li class="row align-items-center" id="item_${product.id}">
-            <div class="col-8">{{title}}</div>
-            <div class="col-3">${{price}}</div>
-            <div class="col-1"><a href="#" onclick="delProduct({{id}})" class="btn btn-light"><i class="fas fa-trash"></i></a></div>
+{{#if products}}
+    <ul id="productsList" style="padding: 0;" class="customRow">
+        <li class="row align-items-center">
+            <div class="col p-2 ps-3"><b>Producto</b></div>
+            <div class="col-2 p-2 text-center"><b>Precio</b></div>
+            <div class="col-2 p-2 text-center"><b></b></div>
         </li>
-    {{/each}}
-</ul>
+            {{#each products}}
+                <li class="row align-items-center my-2" >
+                    <div class="col-auto p-2"><img class="productImage"  src="{{thumbnail}}" alt="{{title}}"></div>
+                    <div class="col p-2">{{title}}</div>
+                    <div class="col-2 p-2 text-center">${{price}}</div>
+                    <div class="col-2 p-2 text-center"><a href="#" onclick="delProduct({{id}})" class="btn customBtn"><i class="fas fa-trash"></i></a></div>
+                </li>
+            {{/each}}
+    </ul>
+{{else}}
+    <h5 class="text-center">No hay productos</h5>
+{{/if}}
