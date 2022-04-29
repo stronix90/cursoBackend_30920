@@ -33,25 +33,27 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+// ---------------------------------------------------------------------
+
 // Si hay registros de chat, los carga
 let msgArray;
-messageStore.readFile().then((res) => {
-  msgArray = res ? res : [];
-});
+messageStore.getMessages().then((res) => (msgArray = res));
 
 // SOCKET
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   // PRODUCTOS
-  socket.emit("inicio", productsList.getAllProducts());
+  const items = await productsList.initialLoad();
+  if (items === false) console.error("Error al abrir base de datos de productos")
+  socket.emit("inicio", items);
 
-  socket.on("newProduct", (data) => {
-    productsList.createProduct(data);
-    io.sockets.emit("inicio", productsList.getAllProducts());
+  socket.on("newProduct", async (data) => {
+    const items = await productsList.createProduct(data, true);
+    io.sockets.emit("inicio", items);
   });
 
-  socket.on("deleteProduct", (id) => {
-    productsList.deleteProduct(id);
-    io.sockets.emit("inicio", productsList.getAllProducts());
+  socket.on("deleteProduct", async (id) => {
+    const items = await productsList.deleteProduct(id, true);
+    io.sockets.emit("inicio", items);
   });
 
   // MENSAJES
@@ -62,11 +64,7 @@ io.on("connection", (socket) => {
   socket.on("newMessage", (newMsg) => {
     msgArray.push(newMsg);
     io.sockets.emit("newMessage", newMsg);
-  });
-
-  // // Desconexión
-  socket.on("disconnect", () => {
-    messageStore.saveFile(msgArray);
+    messageStore.saveMsn(newMsg);
   });
 });
 

@@ -1,35 +1,44 @@
-const fileName = "src/data/messages.json";
-const fs = require("fs");
-
 class Messages {
-  constructor() {
-    this.messages = [];
+  constructor(dbConnection, table) {
+    this.knex = require("knex")(dbConnection);
+    this.table = table;
   }
 
-  // OPERACIONES SOBRE ARCHIVO
-  async saveFile(newData) {
-    if (!fs.existsSync(fileName)) {
-      console.log("El archivo no existe");
-      return;
-    }
-    try {
-      newData = JSON.stringify(newData);
-      await fs.promises.writeFile(fileName, newData, "utf-8");
-    } catch (error) {
-      console.log(error);
-    }
+  async createMessageTable() {
+    this.knex.schema
+      .createTable(this.table, (table) => {
+        table.increments("id"),
+          table.string("email"),
+          table.string("msg"),
+          table.timestamp('created_at').defaultTo(this.knex.fn.now())
+      })
+      .then(() => true)
+      .catch(() => false);
   }
 
-  async readFile() {
-    try {
-      const data = await fs.promises.readFile(fileName, "utf-8");
-      return JSON.parse(data);
-    } catch (error) {
-      console.log("Error al abrir el archivo. Verifique la ruta");
-      return [];
+  async getMessages() {
+    const hasTable = await this.knex.schema.hasTable(this.table);
+
+    if (hasTable) {
+      const messages = await this.knex(this.table).select();
+      return messages;
     }
+    await this.createMessageTable();
+    return [];
+  }
+
+  async saveMsn(newMsg) {
+    const msg = {
+      email: newMsg.email,
+      msg: newMsg.msg,
+    };
+
+    this.knex(this.table)
+      .insert(msg)
+      .catch((err) => console.log(err));
   }
 }
 
-const messageStore = new Messages();
+const { sqliteConn } = require("../db/conn");
+const messageStore = new Messages(sqliteConn, "mensajes");
 module.exports = messageStore;

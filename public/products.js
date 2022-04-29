@@ -35,25 +35,30 @@ const DOM_drawContainer = (data) => {
 const DOM_drawItems = (data) => {
   let items = "";
 
-  data.map((prod) => {
+  data?.map((prod) => {
     items += `
           <li class="row align-items-center my-2">
   
-              <div class="col-auto p-2"><img
+              <div class="col-auto p-2">
+                <img
                   class="productImage"
                   src="${prod.thumbnail}"
                   alt="${prod.title}"
-              /></div>
+                />
+              </div>
   
               <div class="col p-2">${prod.title}</div>
   
               <div class="col-2 p-2 text-center">${prod.price}</div>
   
-              <div class="col-2 p-2 text-center"><a
+              <div class="col-2 p-2 text-center">
+                <a
                   href="#"
                   onclick="delProduct(${prod.id})"
-                  class="btn customBtn"
-              ><i class="fas fa-trash"></i></a></div>
+                  class="btn customBtn">
+                    <i class="fas fa-trash"></i>
+                </a>
+              </div>
   
           </li>`;
   });

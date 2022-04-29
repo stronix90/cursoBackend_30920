@@ -1,60 +1,64 @@
-const errProductNotFound = { error: "Producto no encontrado" };
 const errInvalidData = { error: "Error al procesar datos" };
-const successDeleted = { Operacion: "Eliminar registro", estado: "OK" };
 
 class ProductsList {
-  constructor() {
-    this.index = 1;
-    this.products = [];
+  constructor(dbConnection, table) {
+    this.knex = require("knex")(dbConnection);
+    this.table = table;
   }
 
-  getAllProducts() {
-    return this.products;
+  async initialLoad() {
+    const hasTable = await this.knex.schema.hasTable(this.table);
+    if (hasTable) return await this.getAllProducts();
+
+    try {
+      await this.knex.schema.createTable(this.table, (table) => {
+        table.increments("id"),
+          table.string("title"),
+          table.float("price"),
+          table.string("thumbnail");
+      });
+      console.log(`La tabla ${this.table} no existia, se ha creado`);
+      return [];
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
-  getOneProduct(id) {
-    const index = this.findProduct(id);
-    return index == -1 ? errProductNotFound : this.products[index];
+  async getAllProducts() {
+    try {
+      const result = await this.knex.from("productos").select();
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  createProduct(product) {
+  async createProduct(product, getAll = false) {
     if (!this.checkProduct(product)) return errInvalidData;
 
     const newProduct = {
-      id: this.index,
       title: product.title,
       price: product.price,
       thumbnail: product.thumbnail,
     };
-    this.products.push(newProduct);
-    this.index++;
 
-    return newProduct;
+    try {
+      const result = await this.knex(this.table).insert(newProduct);
+      return getAll ? await this.getAllProducts() : result[0];
+    } catch (error) {
+      console.log(erro);
+      return [];
+    }
   }
 
-  updateProduct(id, product) {
-    if (!this.checkProduct(product)) return errInvalidData;
-
-    const index = this.findProduct(id);
-    if (index == -1) return errProductNotFound;
-
-    const updateProduct = {
-      id,
-      title: product.title,
-      price: product.price,
-      thumbnail: product.thumbnail,
-    };
-    this.products[index] = updateProduct;
-
-    return this.products[index];
-  }
-
-  deleteProduct(id) {
-    const index = this.findProduct(id);
-    if (index == -1) return errProductNotFound;
-
-    this.products.splice(index, 1);
-    return successDeleted;
+  async deleteProduct(id, getAll = false) {
+    try {
+      const result = await this.knex(this.table).where("id", id).del();
+      return getAll ? await this.getAllProducts() : result;
+    } catch (error) {
+      console.log(erro);
+    }
   }
 
   // AUXILIARES
@@ -67,29 +71,8 @@ class ProductsList {
       true;
     }
   }
-
-  findProduct(id) {
-    return this.products.findIndex((product) => product.id == id);
-  }
 }
 
-const productsList = new ProductsList();
+const { myqlConn } = require("../db/conn");
+const productsList = new ProductsList(myqlConn, "productos");
 module.exports = productsList;
-
-productsList.createProduct({
-  title: "Calculadora",
-  price: 1500,
-  thumbnail: "https://www.matematica.pt/images/256_calculadora.png",
-});
-
-productsList.createProduct({
-  title: "Escuadra",
-  price: 250,
-  thumbnail: "https://www.sid.com.uy/imgs/productos/productos31_4375.jpg",
-});
-
-productsList.createProduct({
-  title: "Reloj",
-  price: 500,
-  thumbnail: "https://cpng.pikpng.com/pngl/s/215-2156256_reloj-png-imagenes-de-relojes-png-clipart.png",
-});
