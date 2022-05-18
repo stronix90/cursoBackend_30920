@@ -1,85 +1,109 @@
 <div class="card mt-4 p-3 shadow-lg">
-  <h2>Crear nuevo producto</h2>
-  <form id="form1" method="POST">
-    <div class="mb-3">
-      <label class="form-label" for="title">Título</label>
-      <input
-        class="form-control"
-        type="text"
-        name="title"
-        id="title"
-        required
-      />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label" for="price">Precio</label>
-      <input
-        class="form-control"
-        type="number"
-        name="price"
-        id="price"
-        required
-      />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label" for="thumbnail">Imagen miniatura</label>
-      <input
-        class="form-control"
-        type="text"
-        name="thumbnail"
-        id="thumbnail"
-        required
-      />
-    </div>
-
-    <div class="d-flex">
-      <button class="btn btn-warning shadow" type="submit">Cargar producto</button>
-      <button class="btn ms-auto" type="reset">Borrar formulario</button>
-    </div>
-  </form>
-</div>
-
-<div class="card mt-4 p-3 shadow-lg">
-  <h1>Listado de productos</h1>
-  <div id="productContainer"></div>
+    <h1>Listado de productos</h1>
+    <div id="productContainer"></div>
 </div>
 
 <div class="card mt-4 mb-3 px-3 pt-3 shadow-lg">
-  <h1>Chat</h1>
+    <h1>Chat</h1>
 
-  <form id="formMsg" method="POST" class="m-0">
-    <div class="mb-3">
-      <input
-        class="form-control"
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Inicie sesión ingresando su email"
-        onchange="handleEmail()"
-        required
-      />
-    </div>
+    <form id="formLogin" class="m-0">
 
-    <div id="messageContainer" class="card p-3 shadow-lg" style="height: 70vh; overflow: auto; background-image: url('https://i.pinimg.com/originals/51/ed/c0/51edc046eb80046ee4755ee71d0f19ca.jpg');">
-      <span class="text-center" id="msgWarning">Ingrese su email para que se carguen los mensajes.</br>Una vez ingresado, no podrá cambiarlo</span>
-      <ul id="messageUL" style="display: flex; flex-direction: column; padding: 0">
-      </ul>
-    </div>
+        <div id="loginContainer">
+            <div class="mb-3">
+                <input
+                    class="form-control"
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Inicie sesión ingresando su email"
+                    required
+                />
+            </div>
 
-    <div class="my-2 d-flex">
-      <input 
-        class="form-control"
-        type="text"
-        name="message"
-        id="message"
-        placeholder="Escriba un mensaje"
-        required
-      />
-      <button class="btn btn-warning shadow" type="submit">Enviar</button>
-    </div>
+            <div class="mb-3">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="nombre"
+                    id="nombre"
+                    placeholder="Nombre"
+                    required
+                />
+            </div>
+            <div class="mb-3">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="apellido"
+                    id="apellido"
+                    placeholder="Apellido"
+                    required
+                />
+            </div>
+            <div class="mb-3">
+                <input
+                    class="form-control"
+                    type="number"
+                    name="edad"
+                    id="edad"
+                    placeholder="Edad"
+                    required
+                />
+            </div>
+            <div class="mb-3">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="alias"
+                    id="alias"
+                    placeholder="Alias"
+                    required
+                />
+            </div>
+            <div class="mb-3">
+                <select class="form-control" name="avatar" id="avatar">
+                    <option value="/avatar/abuelita.png">Abuelita</option>
+                    <option value="/avatar/beach.png">Playa</option>
+                    <option value="/avatar/snowboarder.png">Snowboarder</option>
+                    <option value="/avatar/surfer.png">Surfiste</option>
+                    <option value="/avatar/traveler.png">Viajer</option>
+                    <option value="/avatar/zookeeper.png">Zookeeper</option>
+                </select>
+            </div>
 
-  </form>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+
+    <form id="formMsg" class="m-0 d-none">
+        <p>Tamaño de datos normalizados respecto al original:
+            <span id="savedSpace"></span>%</p>
+        <div
+            id="messageContainer"
+            class="card p-3 shadow-lg"
+            style="height: 70vh; overflow: auto; background-image: url('https://i.pinimg.com/originals/51/ed/c0/51edc046eb80046ee4755ee71d0f19ca.jpg');"
+        >
+
+            <ul
+                id="messageUL"
+                style="display: flex; flex-direction: column; padding: 0"
+            >
+            </ul>
+
+        </div>
+
+        <div class="my-2 d-flex">
+            <input
+                class="form-control"
+                type="text"
+                name="message"
+                id="message"
+                placeholder="Escriba un mensaje"
+                required
+            />
+            <button class="btn btn-warning shadow" type="submit">Enviar</button>
+        </div>
+
+    </form>
 
 </div>

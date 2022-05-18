@@ -6,10 +6,11 @@ const morgan = require("morgan");
 const path = require("path");
 const { engine } = require("express-handlebars");
 
-const productsList = require("./data/products");
-const messageStore = require("./data/messages");
+const { messagesDao } = require("./daos/index");
 
-// Inicio aplicación
+const apiRouter = require("./routes/apiRouter");
+
+// Define application
 const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
@@ -30,42 +31,33 @@ app.use(express.static("public"));
 
 // Router
 app.get("/", (req, res) => {
-  res.render("home");
+    res.render("home");
 });
+
+app.use("/api", apiRouter);
 
 // ---------------------------------------------------------------------
 
 // Si hay registros de chat, los carga
 let msgArray;
-messageStore.getMessages().then((res) => (msgArray = res));
+messagesDao.findAll().then((res) => {
+    msgArray = res;
+});
 
 // SOCKET
 io.on("connection", async (socket) => {
-  // PRODUCTOS
-  const items = await productsList.initialLoad();
-  if (items === false) console.error("Error al abrir base de datos de productos")
-  socket.emit("inicio", items);
+    // MENSAJES
+    socket.on("getMessages", () => {
+        const normalizedMessages = messagesDao.normalizeMessages(msgArray);
+        socket.emit("inicioMsg", normalizedMessages);
+    });
 
-  socket.on("newProduct", async (data) => {
-    const items = await productsList.createProduct(data, true);
-    io.sockets.emit("inicio", items);
-  });
+    socket.on("newMessage", async (newMsg) => {
+        io.sockets.emit("newMessage", newMsg);
 
-  socket.on("deleteProduct", async (id) => {
-    const items = await productsList.deleteProduct(id, true);
-    io.sockets.emit("inicio", items);
-  });
-
-  // MENSAJES
-  socket.on("getMessages", () => {
-    socket.emit("inicioMsg", msgArray);
-  });
-
-  socket.on("newMessage", (newMsg) => {
-    msgArray.push(newMsg);
-    io.sockets.emit("newMessage", newMsg);
-    messageStore.saveMsn(newMsg);
-  });
+        const newMsgWithId = await messagesDao.save(newMsg);
+        msgArray.push(newMsgWithId);
+    });
 });
 
 module.exports = { httpServer, app };

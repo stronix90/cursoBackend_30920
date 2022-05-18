@@ -1,19 +1,13 @@
-const myqlConn = {
-  client: "mysql",
-  connection: {
-    host: "127.0.0.1",
-    port: 3306,
-    user: "root",
-    password: "",
-    database: "mibase",
-  },
+const config = {
+    mongodb: {
+        conn: "mongodb+srv://desafioCoder:desafioCoder@cluster0.t7sf8.mongodb.net/coder_d10?retryWrites=true&w=majority",
+        options: {
+            useNewUrlParse: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            serverSelectionTimeoutMS: 5000,
+        },
+    },
 };
 
-const sqliteConn = {
-  client: "sqlite3",
-  connection: {
-    filename: "src/db/ecommerce.sqlite",
-  },
-};
-
-module.exports = {myqlConn, sqliteConn};
+module.exports = config;

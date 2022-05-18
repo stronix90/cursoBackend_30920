@@ -1,5 +1,5 @@
 {
-  "name": "30920_lunabrian_desafio_8",
+  "name": "30920_lunabrian_desafio_10",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,16 +10,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "express-handlebars": "^6.0.3",
     "knex": "^2.0.0",
     "moment": "^2.29.2",
+    "mongoose": "^6.3.3",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "normalizr": "^3.6.2",
     "socket.io": "^4.4.1",
     "sqlite3": "^5.0.6"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
     "nodemon": "^2.0.15"
   },
   "description": ""
