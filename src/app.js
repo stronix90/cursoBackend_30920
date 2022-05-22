@@ -1,16 +1,31 @@
 const express = require("express");
+
+// General
+const path = require("path");
+const morgan = require("morgan");
+
+// socket
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 
-const morgan = require("morgan");
-const path = require("path");
+// Handlebars
 const { engine } = require("express-handlebars");
 
+// Dependencias
 const { messagesDao } = require("./daos/index");
 
+// Router
 const apiRouter = require("./routes/apiRouter");
+const renderRouter = require("./routes/renderRouter");
 
-// Define application
+// Session
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
+// -------------------------------------------------------------------------
+
+// Application
 const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
@@ -28,23 +43,33 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(express.static("public"));
+app.use(
+    session({
+        store: MongoStore.create({
+            mongoUrl:
+                "mongodb+srv://desafioCoder:desafioCoder@cluster0.t7sf8.mongodb.net/session?retryWrites=true&w=majority",
+            mongoOptions: advancedOptions,
+        }),
+        secret: "fraseSecretaSt",
+        resave: true,
+        rolling: true,
+        saveUninitialized: false,
+        cookie: { maxAge: 1000 * 60 * 1 }, // 1 seg * Segundos * Minutos
+    })
+);
 
-// Router
-app.get("/", (req, res) => {
-    res.render("home");
-});
-
+// PAGES
 app.use("/api", apiRouter);
+app.use("/", renderRouter);
 
-// ---------------------------------------------------------------------
+// ------------------------------------------------------------------------
 
-// Si hay registros de chat, los carga
+// SOCKET
 let msgArray;
 messagesDao.findAll().then((res) => {
     msgArray = res;
 });
 
-// SOCKET
 io.on("connection", async (socket) => {
     // MENSAJES
     socket.on("getMessages", () => {

@@ -17,7 +17,6 @@ const DOM_drawContainer = (data) => {
           <li class="row align-items-center">
               <div class="col p-2 ps-3"><b>Producto</b></div>
               <div class="col-2 p-2 text-center"><b>Precio</b></div>
-              <div class="col-2 p-2 text-center"><b></b></div>
           </li>
       </ul>`;
     }
@@ -40,7 +39,7 @@ const DOM_drawItems = (data) => {
   
               <div class="col p-2">${prod.title}</div>
   
-              <div class="col-2 p-2 text-center">${prod.price}</div>
+              <div class="col-2 p-2 text-center">$${prod.price}</div>
   
           </li>`;
     });

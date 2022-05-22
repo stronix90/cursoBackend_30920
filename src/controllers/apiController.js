@@ -1,5 +1,12 @@
 const { faker } = require("@faker-js/faker");
 
+const login = (req, res) => {
+    const name = req.query.name;
+    req.session.name = name;
+
+    res.redirect("/");
+};
+
 const productsTest = (req, res) => {
     const products = generateRandomProducts();
     res.json(products);
@@ -20,4 +27,4 @@ const generateRandomProducts = (qty = 5) => {
     return productsList;
 };
 
-module.exports = { productsTest };
+module.exports = { productsTest, login };
