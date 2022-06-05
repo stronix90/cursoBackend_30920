@@ -10,7 +10,11 @@ class UserDaoMongo extends ContainerMongo {
             new Schema(
                 {
                     email: String,
-                    contraseña: String,
+                    password: String,
+                    name: String,
+                    lastname: String,
+                    age: Number,
+                    nickname: String,
                 },
                 {
                     versionKey: false,
@@ -24,8 +28,7 @@ class UserDaoMongo extends ContainerMongo {
 
     checkUser = async (email) => {
         const res = await this.coll.find({ email });
-        console.log(res);
-        return res
+        return res;
     };
 }
 
