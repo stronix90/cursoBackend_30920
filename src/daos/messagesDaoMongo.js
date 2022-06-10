@@ -3,11 +3,7 @@ const { Schema } = mongoose;
 
 const util = require("util");
 
-const {
-    normalize,
-    denormalize,
-    schema: normalizrSchema,
-} = require("normalizr");
+const { normalize, schema: normalizrSchema } = require("normalizr");
 
 // --- Normalizr Schemas ------------------------------
 const userSchema = new normalizrSchema.Entity(

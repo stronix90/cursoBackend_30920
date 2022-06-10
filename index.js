@@ -1,4 +1,5 @@
 const { app, httpServer } = require("./app");
+require('dotenv').config()
 
 // Connection
 const server = httpServer.listen(app.get("port"), () => {

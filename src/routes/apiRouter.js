@@ -4,6 +4,8 @@ const {
     productsTest,
     requestSucessfull,
     requestError,
+    getProcessInfo,
+    randomNums,
 } = require("../controllers/apiController");
 
 // PASSPORT
@@ -25,5 +27,8 @@ apiRouter.post(
     requestSucessfull,
     requestError
 );
+
+apiRouter.get("/randoms", randomNums)
+
 
 module.exports = apiRouter;

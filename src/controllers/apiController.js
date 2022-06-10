@@ -1,4 +1,6 @@
+const path = require("path");
 const { faker } = require("@faker-js/faker");
+const { fork } = require("child_process");
 
 const requestSucessfull = (req, res) => {
     res.status(200).send();
@@ -28,4 +30,18 @@ const generateRandomProducts = (qty = 5) => {
     return productsList;
 };
 
-module.exports = { productsTest, requestSucessfull, requestError };
+const randomNums = (req, res) => {
+    let { cant } = req.query;
+    if (!cant) cant = 100000000;
+
+    const computo = fork(path.resolve(__dirname, "computo.js"), [cant]);
+    computo.send("start");
+    computo.on("message", (result) => res.json({ result }));
+};
+
+module.exports = {
+    productsTest,
+    requestSucessfull,
+    requestError,
+    randomNums,
+};

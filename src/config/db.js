@@ -1,6 +1,8 @@
-const config = {
+const ENV = require("./envVariables");
+
+const db = {
     mongodb: {
-        conn: "mongodb+srv://desafioCoder:desafioCoder@cluster0.t7sf8.mongodb.net/coder_d10?retryWrites=true&w=majority",
+        conn: ENV.MONGO_CONN_STRING,
         options: {
             useNewUrlParse: true,
             useUnifiedTopology: true,
@@ -10,4 +12,4 @@ const config = {
     },
 };
 
-module.exports = config;
+module.exports = db;

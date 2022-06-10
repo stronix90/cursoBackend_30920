@@ -3,8 +3,9 @@
  */
 
 // General
-const path = require("path");
 const express = require("express");
+const path = require("path");
+const { port } = require("./src/config/args");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
 
@@ -30,7 +31,7 @@ const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
 // Settings
-app.set("port", 8080);
+app.set("port", port);
 
 app.engine(".handlebars", exphbs());
 app.set("view engine", "handlebars");

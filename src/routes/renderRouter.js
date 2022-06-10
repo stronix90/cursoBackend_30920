@@ -24,4 +24,17 @@ renderRouter.get("/logout", isAuth, async (req, res) => {
     res.render("logout", { name });
 });
 
+renderRouter.get("/info", (req, res) => {
+    const info = {
+        argumentos: process.argv.slice(2),
+        OS: process.platform,
+        nodeVersion: process.version,
+        RSS: process.memoryUsage().rss,
+        execPath: process.execPath,
+        processID: process.pid,
+        processPath: process.argv[1],
+    };
+    res.render("info", { info });
+});
+
 module.exports = renderRouter;

@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const config = require("../db/conn");
+const db = require("../config/db");
 const { errorHandler } = require("../utils/util");
 
 (async () => {
-    await mongoose.connect(config.mongodb.conn);
+    await mongoose.connect(db.mongodb.conn);
 })();
 
 class CantainerMongo {

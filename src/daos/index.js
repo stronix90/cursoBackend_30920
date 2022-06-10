@@ -1,7 +1,9 @@
+const ENV = require("../config/envVariables");
+
 let messagesDao;
 let usersDao;
 
-switch (process.env.PERSISTENCIA) {
+switch (ENV.PERSISTENCIA) {
     default:
         const messagesDaoMongo = require("./messagesDaoMongo");
         messagesDao = new messagesDaoMongo();
